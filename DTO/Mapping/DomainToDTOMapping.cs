@@ -1,0 +1,19 @@
+﻿using AutoMapper;
+using Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace DTO.Mapping
+{
+    public class DomainToDTOMapping : Profile
+    {
+        public DomainToDTOMapping()
+        {
+            CreateMap<Expense, ExpenseDTO>().ReverseMap();
+        }
+    }
+}
