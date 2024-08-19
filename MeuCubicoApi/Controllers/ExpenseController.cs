@@ -11,7 +11,7 @@ namespace MeuCubicoApi.Controllers
 
         public ExpenseController(IExpenseService expenseService)
         {
-            expenseService = service;
+             service = expenseService;
         }
 
         [HttpPost("Produtos")]
@@ -25,11 +25,6 @@ namespace MeuCubicoApi.Controllers
                 }
 
                 var expenseAdded = await service.CreateExpense(dto);
-
-                if (dto == null)
-                {
-                    return NotFound("Expense not found");
-                }
                 return Ok(dto);
             }
             catch (Exception ex) {

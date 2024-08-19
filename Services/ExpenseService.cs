@@ -18,8 +18,8 @@ namespace Services
 
         public ExpenseService(IExpenseRepository expenseRepository, IMapper mapper)
         {
-            expenseRepository = repository;
-            mapper = this.mapper;
+            repository = expenseRepository;
+             this.mapper = mapper;
         }
 
         public async Task<ExpenseDTO> CreateExpense(ExpenseDTO dto)

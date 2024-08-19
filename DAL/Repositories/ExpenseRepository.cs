@@ -15,7 +15,7 @@ namespace DAL.Repositories
 
         public ExpenseRepository (MeuCubicoDbContext meuCubicoDbContext)
         {
-            meuCubicoDbContext = dbContext;
+            dbContext = meuCubicoDbContext;
         }
 
         public async Task<Expense> CreateExpense (Expense expense)
