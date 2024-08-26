@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DTO;
+using MeuCubicoApi.Pagination;
 using Model;
 using Shared.IRepositories;
 using Shared.IServices;
@@ -42,6 +43,16 @@ namespace Services
             {
                 throw new Exception();
             }
+        }
+
+        public async Task<IEnumerable<ExpenseDTO>> GetAllExpenses(ExpenseParameters expensesParameters)
+        {
+            var expenses = await repository.GetAllExpenses(expensesParameters);
+
+            if (expenses != null) {
+                var dto = mapper.Map<IEnumerable<ExpenseDTO>>(expenses);
+                return dto;
+            } else { throw new Exception(); }
         }
     }
 }

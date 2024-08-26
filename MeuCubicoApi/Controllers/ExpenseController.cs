@@ -1,4 +1,5 @@
 ﻿using DTO;
+using MeuCubicoApi.Pagination;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Shared.IServices;
@@ -14,7 +15,7 @@ namespace MeuCubicoApi.Controllers
              service = expenseService;
         }
 
-        [HttpPost("Produtos")]
+        [HttpPost("Expenses")]
         public async Task<ActionResult<ExpenseDTO>> CreateExpense(ExpenseDTO dto)
         {
             try
@@ -54,6 +55,14 @@ namespace MeuCubicoApi.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        [HttpGet("Expenses/pagination")]
+        public async Task<ActionResult<IEnumerable<ExpenseDTO>>> GetAllExpenses([FromQuery]ExpenseParameters expenseParameters)
+        {
+            var expenses = await service.GetAllExpenses(expenseParameters);
+
+            return Ok(expenses);
         }
 
     }

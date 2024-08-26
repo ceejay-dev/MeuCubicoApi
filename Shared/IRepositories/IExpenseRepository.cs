@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using MeuCubicoApi.Pagination;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Shared.IRepositories
     {
         Task<Expense> CreateExpense(Expense expense);
         Task<Expense> GetExpenseById(int id);
+        Task<IEnumerable<Expense>> GetAllExpenses(ExpenseParameters expenses);
     }
 }

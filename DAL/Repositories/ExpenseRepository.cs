@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MeuCubicoApi.Pagination;
+using Microsoft.EntityFrameworkCore;
 using Model;
 using Shared.IRepositories;
 using System;
@@ -30,6 +31,15 @@ namespace DAL.Repositories
             var expense = await dbContext.Expenses.FirstOrDefaultAsync(e => e.ExpenseId == id);
 
             return expense;            
+        }
+
+        public async Task<IEnumerable<Expense>> GetAllExpenses(ExpenseParameters expenses)
+        {
+            return await dbContext.Expenses
+                .OrderBy(e => e.ExpenseId)
+                .Skip((expenses.PageNumber-1) * expenses.PageSize)
+                .Take(expenses.PageSize)
+                .ToListAsync();
         }
     }
 }
