@@ -25,6 +25,10 @@ builder.Services.AddScoped<IExpenseService, ExpenseService>();
 
 builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
 
+//Authentication services
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,9 +39,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

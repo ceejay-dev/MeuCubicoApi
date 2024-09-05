@@ -2,6 +2,7 @@
 using DTO;
 using MeuCubicoApi.Pagination;
 using Model;
+using Pagination;
 using Shared.IRepositories;
 using Shared.IServices;
 using System;
@@ -45,14 +46,28 @@ namespace Services
             }
         }
 
-        public async Task<IEnumerable<ExpenseDTO>> GetAllExpenses(ExpenseParameters expensesParameters)
+        public async Task<PagedList<ExpenseDTO>> GetAllExpenses(ExpenseParameters expensesParameters)
         {
             var expenses = await repository.GetAllExpenses(expensesParameters);
 
-            if (expenses != null) {
-                var dto = mapper.Map<IEnumerable<ExpenseDTO>>(expenses);
-                return dto;
-            } else { throw new Exception(); }
+            if (expenses != null)
+            {
+                var dtoList = mapper.Map<IEnumerable<ExpenseDTO>>(expenses);
+
+                // Cria um novo PagedList de DTOs, mantendo as informações de paginação
+                var dtoPagedList = new PagedList<ExpenseDTO>(
+                    dtoList.ToList(),
+                    expenses.TotalCount,
+                    expenses.CurrentPage,
+                    expenses.PageSize);
+
+                return dtoPagedList;
+            }
+            else
+            {
+                throw new Exception("No expenses found.");
+            }
         }
+
     }
 }

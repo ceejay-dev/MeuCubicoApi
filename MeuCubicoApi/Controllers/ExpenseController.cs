@@ -1,7 +1,10 @@
 ﻿using DTO;
 using MeuCubicoApi.Pagination;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Pagination;
 using Shared.IServices;
 
 namespace MeuCubicoApi.Controllers
@@ -20,11 +23,6 @@ namespace MeuCubicoApi.Controllers
         {
             try
             {
-                if (service == null)
-                {
-                    return StatusCode(500, "Service is not initialized.");
-                }
-
                 var expenseAdded = await service.CreateExpense(dto);
                 return Ok(dto);
             }
@@ -38,11 +36,6 @@ namespace MeuCubicoApi.Controllers
         {
             try
             {
-                if (service == null)
-                {
-                    return StatusCode(500, "Service is not initialized.");
-                }
-
                 var dto = await service.GetExpenseById(id);
 
                 if (dto == null)
@@ -58,12 +51,29 @@ namespace MeuCubicoApi.Controllers
         }
 
         [HttpGet("Expenses/pagination")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ExpenseDTO>>> GetAllExpenses([FromQuery]ExpenseParameters expenseParameters)
         {
-            var expenses = await service.GetAllExpenses(expenseParameters);
+            try
+            {
+                var expenses = await service.GetAllExpenses(expenseParameters);
 
-            return Ok(expenses);
+                var metadata = new
+                {
+                    expenses.TotalCount,
+                    expenses.PageSize,
+                    expenses.CurrentPage,
+                    expenses.TotalPages,
+                    expenses.HasNext,
+                    expenses.HasPreviuos
+                };
+                Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+                return Ok(expenses);
+            }
+            catch (Exception ex) {
+
+                return StatusCode(404, $"Not found error: {ex.Message}");
+            }
         }
-
     }
 }

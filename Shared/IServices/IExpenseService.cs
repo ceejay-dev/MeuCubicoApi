@@ -1,6 +1,7 @@
 ﻿using DTO;
 using MeuCubicoApi.Pagination;
 using Model;
+using Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace Shared.IServices
     {
         Task<ExpenseDTO> CreateExpense(ExpenseDTO expense);
         Task<ExpenseDTO> GetExpenseById(int id);
-        Task<IEnumerable<ExpenseDTO>> GetAllExpenses(ExpenseParameters expenses);
+        Task<PagedList<ExpenseDTO>> GetAllExpenses(ExpenseParameters expenses);
     }
 }
