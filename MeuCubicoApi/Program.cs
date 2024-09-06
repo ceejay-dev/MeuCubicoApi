@@ -1,7 +1,9 @@
 using DAL;
 using DAL.Repositories;
 using DTO.Mapping;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Model;
 using Services;
 using Shared.IRepositories;
 using Shared.IServices;
@@ -14,6 +16,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<MeuCubicoDbContext>()
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddDbContext<MeuCubicoDbContext>(options =>
 {

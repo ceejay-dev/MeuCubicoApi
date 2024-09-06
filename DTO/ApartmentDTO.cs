@@ -11,7 +11,7 @@ namespace DTO
         public int APId { get; set; }
         public float Debt { get; set; }
         public float Balance { get; set; }
-        public ResidentDTO? Resident { get; set; }
+        public UserForRegistrationDTO? Resident { get; set; }
         public ExpenseDTO? Expense { get; set; }
         public ActivityDTO? Activity { get; set; }
     }

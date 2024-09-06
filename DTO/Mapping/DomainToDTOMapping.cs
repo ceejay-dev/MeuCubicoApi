@@ -14,6 +14,9 @@ namespace DTO.Mapping
         public DomainToDTOMapping()
         {
             CreateMap<Expense, ExpenseDTO>().ReverseMap();
+
+            CreateMap<UserForRegistrationDTO, User>()
+           .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
         }
     }
 }
