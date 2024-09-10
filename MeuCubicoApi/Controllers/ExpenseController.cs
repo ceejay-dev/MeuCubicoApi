@@ -9,6 +9,8 @@ using Shared.IServices;
 
 namespace MeuCubicoApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ExpenseController : ControllerBase
     {
         private readonly IExpenseService service;
@@ -32,6 +34,7 @@ namespace MeuCubicoApi.Controllers
         }
 
         [HttpGet("Expense/{id}")]
+        [Authorize]
         public async Task<ActionResult<ExpenseDTO>> GetExpenseById(int id)
         {
             try

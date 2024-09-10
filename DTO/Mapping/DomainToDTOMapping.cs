@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DTO.Auth;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace DTO.Mapping
         public DomainToDTOMapping()
         {
             CreateMap<Expense, ExpenseDTO>().ReverseMap();
-
+            CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<UserForRegistrationDTO, User>()
            .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
         }

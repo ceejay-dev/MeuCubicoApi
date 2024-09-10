@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTO
+namespace DTO.Auth
 {
     public class UserForRegistrationDTO
     {
         public string? Name { get; set; }
         [StringLength(14)]
-        public string ? BI { get; set; }
+        public string? BI { get; set; }
         [StringLength(12)]
-        public string ? PhoneNumber { get; set; }
-        
+        public string? PhoneNumber { get; set; }
+
         [Required(ErrorMessage = "Email is required.")]
-        public string? Email { get; set; }  
+        public string? Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         public string? Password { get; set; }

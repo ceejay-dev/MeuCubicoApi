@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Pagination
 {
-    internal class ResidentParameters : QueryStringParameters
+    public class UserParameters : QueryStringParameters
     {
+
     }
 }

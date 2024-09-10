@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using DTO;
+using DTO.Auth;
+using MeuCubicoApi.JwtFeatures;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Model;
@@ -12,11 +13,13 @@ namespace MeuCubicoApi.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly JwtHandler _jwtHandler;
 
-        public AccountsController(UserManager<User> userManager, IMapper mapper)
+        public AccountsController(UserManager<User> userManager, IMapper mapper, JwtHandler jwtHandler)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _jwtHandler = jwtHandler;
         }
 
         [HttpPost("Registration")]
@@ -34,8 +37,19 @@ namespace MeuCubicoApi.Controllers
 
                 return BadRequest(new RegistrationResponseDto { Errors = errors });
             }
-
             return StatusCode(201);
+        }
+
+        [HttpPost("Authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDTO userForAuthenticationDTO)
+        {
+            var user = await _userManager.FindByNameAsync(userForAuthenticationDTO.Email!);
+
+            if(user is null || !await _userManager.CheckPasswordAsync(user, userForAuthenticationDTO.Password!))
+                return Unauthorized(new AuthResponseDTO { ErrorMessage = "Invalid Authentication"});
+        
+            var token = _jwtHandler.CreateToken(user);
+            return Ok(new AuthResponseDTO { IsAuthSuccessful = true, Token = token});
         }
     }
 }
