@@ -46,7 +46,7 @@ namespace MeuCubicoApi.Controllers
             var user = await _userManager.FindByNameAsync(userForAuthenticationDTO.Email!);
 
             if(user is null || !await _userManager.CheckPasswordAsync(user, userForAuthenticationDTO.Password!))
-                return Unauthorized(new AuthResponseDTO { ErrorMessage = "Invalid Authentication"});
+                return Unauthorized(new AuthResponseDTO { ErrorMessage = "Invalid Authenticatio"});
         
             var token = _jwtHandler.CreateToken(user);
             return Ok(new AuthResponseDTO { IsAuthSuccessful = true, Token = token});
