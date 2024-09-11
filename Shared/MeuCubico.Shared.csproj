@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DTO\DTO.csproj" />
-    <ProjectReference Include="..\Model\Model.csproj" />
-    <ProjectReference Include="..\Pagination\Pagination.csproj" />
+    <ProjectReference Include="..\DTO\MeuCubico.DTO.csproj" />
+    <ProjectReference Include="..\Model\MeuCubico.Model.csproj" />
+    <ProjectReference Include="..\Pagination\MeuCubico.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

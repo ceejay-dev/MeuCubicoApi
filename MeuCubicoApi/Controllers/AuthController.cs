@@ -32,8 +32,8 @@ namespace MeuCubicoApi.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] UserForAuthenticationDTO dto)
         {
-            var user = !string.IsNullOrEmpty(dto.PhoneNumber)
-            ? await userManager.FindByNameAsync(dto.PhoneNumber!)
+            var user = !string.IsNullOrEmpty(dto.Username)
+            ? await userManager.FindByNameAsync(dto.Username!)
             : await userManager.FindByNameAsync(dto.Email!);
 
             if (user is not null && await userManager.CheckPasswordAsync(user, dto.Password!))

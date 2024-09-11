@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubicoApi", "MeuCubicoApi\MeuCubicoApi.csproj", "{0BD5EF4B-F813-43D5-8AAE-72333CEDBD97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubico.API", "MeuCubicoApi\MeuCubico.API.csproj", "{0BD5EF4B-F813-43D5-8AAE-72333CEDBD97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{16FC3820-3CCC-4C4B-9757-97B3B1CE2C0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubico.DAL", "DAL\MeuCubico.DAL.csproj", "{16FC3820-3CCC-4C4B-9757-97B3B1CE2C0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{FED0F305-6D58-4312-9B9F-C8F0F2A44836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubico.DTO", "DTO\MeuCubico.DTO.csproj", "{FED0F305-6D58-4312-9B9F-C8F0F2A44836}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{A0F7EDFF-AE8C-4B7A-ACB6-20E57A333673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubico.Services", "Services\MeuCubico.Services.csproj", "{A0F7EDFF-AE8C-4B7A-ACB6-20E57A333673}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{3D6CFF47-F89E-499A-9F88-F78537E66315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubico.Model", "Model\MeuCubico.Model.csproj", "{3D6CFF47-F89E-499A-9F88-F78537E66315}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{4E9273D1-661B-498F-9D7B-7F00C5996F9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubico.Shared", "Shared\MeuCubico.Shared.csproj", "{4E9273D1-661B-498F-9D7B-7F00C5996F9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pagination", "Pagination\Pagination.csproj", "{B38499D7-CE93-423F-9DF4-85D2DD9A4D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeuCubico.Helpers", "Pagination\MeuCubico.Helpers.csproj", "{B38499D7-CE93-423F-9DF4-85D2DD9A4D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
