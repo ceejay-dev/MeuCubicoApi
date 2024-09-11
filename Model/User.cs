@@ -17,5 +17,7 @@ namespace Model
         public string? BI { get; set; }
         public string? Photo { get; set; }
         public string? Position { get; set; } = "regular";
-    }
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
+    }   
 }

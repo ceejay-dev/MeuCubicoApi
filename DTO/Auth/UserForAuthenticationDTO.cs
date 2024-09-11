@@ -9,7 +9,8 @@ namespace DTO.Auth
 {
     public class UserForAuthenticationDTO
     {
-        [Required(ErrorMessage = "The email is required")]
+        [Required(ErrorMessage = "The username is required")]
+        public string? Username { get; set; }
         public string? Email { get; set; }
         [Required(ErrorMessage = "The password is required")]
         public string? Password { get; set; }

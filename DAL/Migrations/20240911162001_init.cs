@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class identityTables : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,6 +47,8 @@ namespace DAL.Migrations
                     BI = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -195,8 +197,8 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Debt = table.Column<float>(type: "real", nullable: false),
                     Balance = table.Column<float>(type: "real", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserFk = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ExpenseId = table.Column<int>(type: "int", nullable: false),
                     ActivityId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -210,8 +212,8 @@ namespace DAL.Migrations
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Apartments_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Apartments_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -224,8 +226,8 @@ namespace DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "BI", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Photo", "Position", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "2359b0a8-8914-481b-bb3c-2a3c61a94685", 0, "004545006060", "fcfa4ead-fa19-4ae6-9e0a-a917e1e699f0", "20200054@isptec.co.ao", false, false, null, "Cândido Bernardo", null, null, "12345678", "934818736", false, "foto.png", "admin", "3ffd6d0c-d9c7-44cd-b4a6-323d51881fee", false, "tester" });
+                columns: new[] { "Id", "AccessFailedCount", "BI", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Photo", "Position", "RefreshToken", "RefreshTokenExpiryTime", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "aa0b9f8c-3e26-4b86-acaf-d927e3cab4e4", 0, "004545006060", "2d614587-85ac-429f-855f-cabc759d0183", "20200054@isptec.co.ao", false, false, null, "Cândido Bernardo", null, null, "12345678", "934818736", false, "foto.png", "admin", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "11f39c52-a5da-4505-bee5-d7d66d35c69c", false, "tester" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Apartments_ActivityId",
@@ -238,9 +240,9 @@ namespace DAL.Migrations
                 column: "ExpenseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Apartments_UserId1",
+                name: "IX_Apartments_UserId",
                 table: "Apartments",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

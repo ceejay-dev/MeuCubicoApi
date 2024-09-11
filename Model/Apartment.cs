@@ -16,7 +16,7 @@ namespace Model
         public float Debt { get; set; }
         [Required]
         public float Balance { get; set; }
-        public Guid UserId { get; set; }
+        public Guid UserFk { get; set; }
         public User ? User { get; set; }
         public int ExpenseId { get; set; }
         public Expense ? Expense { get; set; }

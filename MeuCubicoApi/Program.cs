@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Model;
 using Services;
 using Shared.IRepositories;
@@ -19,12 +20,36 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<MeuCubicoDbContext>()
-    .AddDefaultTokenProviders();
+//Securing API 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "MeuCubicoApi", Version = "v1" });
 
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Description = "Bearer JWT",
+    });
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string []{}
+        }
+    });
+});
 
 builder.Services.AddDbContext<MeuCubicoDbContext>(options =>
 {
@@ -37,33 +62,40 @@ builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddAutoMapper(typeof(DomainToDTOMapping));
 
 //Authentication services
-//builder.Services.AddAuthorization();
-//builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<MeuCubicoDbContext>()
+    .AddDefaultTokenProviders();
 
-var jwt = builder.Configuration.GetSection("JWT");
+var jwtConfig = builder.Configuration.GetSection("JWT");
+var secretKey = jwtConfig["SecretKey"] ?? throw new ArgumentException("Invalid secret key!!");
+
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwt["ValidIssuer"],
-        ValidAudience = jwt["ValidAudience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-            .GetBytes(jwt.GetSection("SecretKey").Value))
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = jwtConfig["ValidIssuer"],
+        ValidAudience = jwtConfig["ValidAudience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
     };
 });
 
-builder.Services.AddSingleton<JwtHandler>();
+//builder.Services.AddSingleton<JwtHandler>();
 
 var app = builder.Build();
 

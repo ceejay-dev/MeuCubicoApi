@@ -10,11 +10,13 @@ namespace DTO.Auth
     public class UserForRegistrationDTO
     {
         public string? Name { get; set; }
+        [Required]
         [StringLength(14)]
         public string? BI { get; set; }
+        [Required]
         [StringLength(12)]
         public string? PhoneNumber { get; set; }
-
+        [EmailAddress]
         [Required(ErrorMessage = "Email is required.")]
         public string? Email { get; set; }
 

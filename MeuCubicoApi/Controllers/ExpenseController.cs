@@ -33,8 +33,8 @@ namespace MeuCubicoApi.Controllers
             }
         }
 
-        [HttpGet("Expense/{id}")]
         [Authorize]
+        [HttpGet("Expense/{id}")]
         public async Task<ActionResult<ExpenseDTO>> GetExpenseById(int id)
         {
             try
@@ -53,8 +53,8 @@ namespace MeuCubicoApi.Controllers
             }
         }
 
-        [HttpGet("Expenses/pagination")]
         [Authorize]
+        [HttpGet("Expenses/pagination")]
         public async Task<ActionResult<IEnumerable<ExpenseDTO>>> GetAllExpenses([FromQuery]ExpenseParameters expenseParameters)
         {
             try

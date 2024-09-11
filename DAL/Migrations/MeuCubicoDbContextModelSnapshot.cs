@@ -192,10 +192,10 @@ namespace DAL.Migrations
                     b.Property<int>("ExpenseId")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("UserFk")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -204,7 +204,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("ExpenseId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Apartments");
                 });
@@ -286,6 +286,12 @@ namespace DAL.Migrations
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -311,10 +317,10 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2359b0a8-8914-481b-bb3c-2a3c61a94685",
+                            Id = "aa0b9f8c-3e26-4b86-acaf-d927e3cab4e4",
                             AccessFailedCount = 0,
                             BI = "004545006060",
-                            ConcurrencyStamp = "fcfa4ead-fa19-4ae6-9e0a-a917e1e699f0",
+                            ConcurrencyStamp = "2d614587-85ac-429f-855f-cabc759d0183",
                             Email = "20200054@isptec.co.ao",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -324,7 +330,8 @@ namespace DAL.Migrations
                             PhoneNumberConfirmed = false,
                             Photo = "foto.png",
                             Position = "admin",
-                            SecurityStamp = "3ffd6d0c-d9c7-44cd-b4a6-323d51881fee",
+                            RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SecurityStamp = "11f39c52-a5da-4505-bee5-d7d66d35c69c",
                             TwoFactorEnabled = false,
                             UserName = "tester"
                         });
@@ -397,7 +404,7 @@ namespace DAL.Migrations
 
                     b.HasOne("Model.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Activity");
 
