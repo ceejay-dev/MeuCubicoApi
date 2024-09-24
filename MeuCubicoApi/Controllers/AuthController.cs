@@ -1,5 +1,6 @@
 ﻿using Azure;
 using DTO.Auth;
+using MeuCubico.DTO.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
@@ -94,12 +95,34 @@ namespace MeuCubicoApi.Controllers
                 PhoneNumber = dto.PhoneNumber
             };
             var result = await userManager.CreateAsync(user, dto.Password!);
+            //await userManager.SetTwoFactorEnabledAsync(user, true);
+
+            //if (await userManager.GetTwoFactorEnabledAsync(user))
+            //{
+            //    return await GenerateOtpVerification(user);
+            //}
 
             if (!result.Succeeded) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new AuthResponseDTO{ Status = "Error", Message = "User creation failed. "});
             }
             return Ok(new AuthResponseDTO { Status = "Success", Message = "User created successfully!" });
         }
+
+        //private async Task<IActionResult> GenerateOtpVerification(User user)
+        //{
+        //    var token = await userManager.GenerateTwoFactorTokenAsync(user, "Phone");
+
+        //    // 
+        //    await SendSmsAsync(user.PhoneNumber, $"Your OTP is: {token}");
+
+        //    return Ok(new AuthResponseDTO
+        //    {
+        //        Status = "Success",
+        //        Message = "User created successfully! Please verify your phone number.",
+        //        Is2FactorRequired = true,
+        //        Provider = "Phone"
+        //    });
+        //}
 
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken(TokenDTO dto)
