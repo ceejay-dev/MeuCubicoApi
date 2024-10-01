@@ -317,10 +317,10 @@ namespace MeuCubico.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "61ddd4c1-e30d-40d3-b576-0d5f98bced95",
+                            Id = "48cb1fba-b394-4b68-bd30-b8ed2c2f11fd",
                             AccessFailedCount = 0,
                             BI = "004545006060",
-                            ConcurrencyStamp = "9a2ec69e-df6c-4037-8dd9-8c4418153dd3",
+                            ConcurrencyStamp = "0f5811ef-af77-40d6-b510-46a7dc4c4674",
                             Email = "20200054@isptec.co.ao",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
@@ -331,7 +331,7 @@ namespace MeuCubico.DAL.Migrations
                             Photo = "foto.png",
                             Position = "admin",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SecurityStamp = "cb6053d5-14c4-45fb-b167-1b4de87850ca",
+                            SecurityStamp = "83734637-91ed-4dbd-b915-9a3cdd3e18cf",
                             TwoFactorEnabled = false,
                             UserName = "tester"
                         });

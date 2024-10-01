@@ -144,7 +144,6 @@ namespace MeuCubicoApi.Controllers
             });
         }
 
-        [Authorize]
         [HttpPost("revoke/{username}")]
         public async Task<IActionResult> Revoke(string username)
         {

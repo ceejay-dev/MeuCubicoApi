@@ -227,7 +227,7 @@ namespace MeuCubico.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BI", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Photo", "Position", "RefreshToken", "RefreshTokenExpiryTime", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "61ddd4c1-e30d-40d3-b576-0d5f98bced95", 0, "004545006060", "9a2ec69e-df6c-4037-8dd9-8c4418153dd3", "20200054@isptec.co.ao", false, false, null, "Cândido Bernardo", null, null, "12345678", "934818736", false, "foto.png", "admin", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "cb6053d5-14c4-45fb-b167-1b4de87850ca", false, "tester" });
+                values: new object[] { "48cb1fba-b394-4b68-bd30-b8ed2c2f11fd", 0, "004545006060", "0f5811ef-af77-40d6-b510-46a7dc4c4674", "20200054@isptec.co.ao", false, false, null, "Cândido Bernardo", null, null, "12345678", "934818736", false, "foto.png", "admin", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "83734637-91ed-4dbd-b915-9a3cdd3e18cf", false, "tester" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Apartments_ActivityId",
